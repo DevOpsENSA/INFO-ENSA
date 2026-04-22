@@ -1,6 +1,6 @@
 FROM php:8.3-apache
+RUN apt-get update && apt-get install -y \zip \unzip \git \libpq-dev
 RUN docker-php-ext-install pdo pdo_pgsql
-RUN apt-get update && apt-get install -y zip unzip git
 WORKDIR /var/www/html 
 #apache expects it as the default
 COPY . .
