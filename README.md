@@ -1,43 +1,26 @@
-# INFO-ENSA Project - Development Guide (dev-real)
+# INFO-ENSA Project
 
-This repository contains the `INFO-ENSA` platform, featuring a Laravel backend and a plain HTML/CSS/JS frontend, both containerized using Docker.
+A lightweight full-stack platform with a **Laravel API** and a **Plain HTML/CSS/JS Frontend**, fully containerized and configured for rapid development.
 
-## Branches
-- `main`: Original branch.
-- `dev-optimal`: Full development branch with Laravel + Angular.
-- `dev-real`: Lightweight development branch with Laravel + Plain HTML/CSS/JS (Active).
+## 🚀 Quick Start
 
----
+Ensure you have **Docker** installed, then run:
 
-## How to Run the Project
-
-Follow these steps to get the project up and running locally.
-
-### 1. Prerequisites
-- [Docker](https://www.docker.com/) and Docker Compose installed.
-- Git.
-
-### 2. Setup Environment Files
-The project requires `.env` files in the root and `backend/` directory. (These have been initialized for you).
-
-### 3. Start the Containers
-Run the following command in the root directory:
 ```bash
-docker compose up -d --build
+docker compose up -d
 ```
 
-### 4. Initialize Laravel Backend
-Run these commands to generate the application key and migrate the database:
-```bash
-docker exec info-ensa-backend-1 php artisan key:generate
-docker exec info-ensa-backend-1 php artisan migrate --force
-```
+That's it! The environment is pre-configured with volume mounts so your edits reflect instantly.
 
-### 5. Access the Application
-- **Frontend**: [http://localhost:4200](http://localhost:4200) (Simple HTML/CSS/JS)
+## 🔗 Access Links
+
+- **Frontend**: [http://localhost:4200](http://localhost:4200)
 - **Backend API**: [http://localhost:8080](http://localhost:8080)
 
----
+## 🛠️ Development Features
 
-## Architecture details
-This branch (`dev-real`) is designed for simplicity. The frontend is served via Nginx and communicates with the Laravel API. Angular is **not** used here.
+- **Hot Reloading**: Both frontend (`frontend/src`) and backend (`backend/`) use Docker volumes. Edit your files locally, and see the changes immediately without rebuilding.
+- **Pure API**: The backend is optimized as a JSON API.
+- **CORS Enabled**: Cross-origin requests from the frontend to the backend are pre-configured.
+
+#
