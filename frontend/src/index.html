@@ -1,19 +1,141 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INFO-ENSA</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Auth</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #f4f6f9;
+}
+
+.container {
+    width: 320px;
+    margin: 80px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.toggle {
+    margin-top: 10px;
+    color: blue;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+</style>
+
 </head>
+
 <body>
-    <div id="app">
-        <h1>Hello Abdellah</h1>
-        <p>test</p>
-        <div id="api-status">
-            <p>Backend Message: <span id="backend-message">Loading...</span></p>
-        </div>
+
+<div class="container">
+
+    <!-- LOGIN -->
+    <div id="loginForm">
+        <h2>Connexion</h2>
+        <form onsubmit="login(event)">
+            <input type="text" id="loginEmail" placeholder="Email" required>
+            <input type="password" id="loginPassword" placeholder="Mot de passe" required>
+            <button type="submit">Se connecter</button>
+        </form>
+
+        <p class="toggle" onclick="showRegister()">Créer un compte</p>
     </div>
-    <script src="script.js"></script>
+
+    <!-- REGISTER -->
+    <div id="registerForm" class="hidden">
+        <h2>Inscription</h2>
+        <form onsubmit="register(event)">
+            <input type="text" id="regName" placeholder="Nom" required>
+            <input type="text" id="regEmail" placeholder="Email" required>
+            <input type="password" id="regPassword" placeholder="Mot de passe" required>
+            <button type="submit">S'inscrire</button>
+        </form>
+
+        <p class="toggle" onclick="showLogin()">Déjà un compte ? Se connecter</p>
+    </div>
+
+</div>
+
+<script>
+// afficher register
+function showRegister() {
+    document.getElementById("loginForm").classList.add("hidden");
+    document.getElementById("registerForm").classList.remove("hidden");
+}
+
+// afficher login
+function showLogin() {
+    document.getElementById("registerForm").classList.add("hidden");
+    document.getElementById("loginForm").classList.remove("hidden");
+}
+
+// INSCRIPTION
+function register(e) {
+    e.preventDefault();
+
+    let name = document.getElementById("regName").value.trim();
+    let email = document.getElementById("regEmail").value.trim();
+    let password = document.getElementById("regPassword").value.trim();
+
+    if (!name || !email || !password) {
+        alert("Remplir tous les champs !");
+        return;
+    }
+
+    let user = { name, email, password };
+
+    localStorage.setItem("userData", JSON.stringify(user));
+
+    alert("Inscription réussie !");
+    showLogin();
+}
+
+// LOGIN
+function login(e) {
+    e.preventDefault();
+
+    let email = document.getElementById("loginEmail").value.trim();
+    let password = document.getElementById("loginPassword").value.trim();
+
+    let storedUser = localStorage.getItem("userData");
+
+    if (!storedUser) {
+        alert("Aucun utilisateur trouvé. Inscris-toi d'abord !");
+        return;
+    }
+
+    let user = JSON.parse(storedUser);
+
+    if (user.email === email && user.password === password) {
+        localStorage.setItem("user", user.name);
+        window.location.href = "dashboard.html";
+    } else {
+        alert("Email ou mot de passe incorrect !");
+    }
+}
+</script>
+
 </body>
 </html>
